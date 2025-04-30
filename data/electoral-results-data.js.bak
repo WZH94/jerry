@@ -1,0 +1,1968 @@
+function getResultOfYearAndConstituency(year, name) {
+	
+}
+
+const electoralResults = [
+  {
+    "Year": 2011,
+    "Constituency Name": "Hong Kah North",
+    "Constituency Type": "SMC",
+    "Candidates": "Sin Kek Tong",
+    "Party": "SPP",
+    "Vote Count": 7556,
+    "Vote Percentage": 0.2939
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Goh Meng Seng | James Gomez | Lim Swee Lian Sylvia | Mohd Rahizan Bin Yaacob | Tan Wui-Hua",
+    "Party": "WP",
+    "Vote Count": 58593,
+    "Vote Percentage": 0.4391
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Lim Hwee Hua | Cynthia Phua | Yeo Guat Kwang | George Yong-Boon Yeo | Zainul Abidin Rasheed",
+    "Party": "PAP",
+    "Vote Count": 74843,
+    "Vote Percentage": 0.5609
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Salim Bin Harun | Gopal Krishnan | Han Su May | Lee Wai Leng | Tan Kian Hwee Melvin | Yaw Shin Leong",
+    "Party": "WP",
+    "Vote Count": 49479,
+    "Vote Percentage": 0.3386
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Inderjit Singh | Lam Pin Min | Lee Bee Wah | Lee Hsien Loong | Sadasivan Balaji | Wee Siew Kim",
+    "Party": "PAP",
+    "Vote Count": 96636,
+    "Vote Percentage": 0.6614
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Hri Kumar Sangaran | Ng Eng Hen | Josephine Teo | Wong Kan Seng | Zainudin Bin Nordin",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Ling How Doong",
+    "Party": "SDP",
+    "Vote Count": 6400,
+    "Vote Percentage": 0.2281
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Teo Ho Pin",
+    "Party": "PAP",
+    "Vote Count": 21652,
+    "Vote Percentage": 0.7719
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "SMC",
+    "Candidates": "Steve Chia",
+    "Party": "SDA",
+    "Vote Count": 9292,
+    "Vote Percentage": 0.3963
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "SMC",
+    "Candidates": "Gan Kim Yong",
+    "Party": "PAP",
+    "Vote Count": 14156,
+    "Vote Percentage": 0.6037
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Rahim | Chia Ti Lik | Brandon Siow | Eric Tan | Perry Tong",
+    "Party": "WP",
+    "Vote Count": 37873,
+    "Vote Percentage": 0.3614
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdullah Tarmugi | Lee Yi Shyan | Lim Siang Keat Raymond | S Jayakumar | Tan Soon Neo Jessica",
+    "Party": "PAP",
+    "Vote Count": 66931,
+    "Vote Percentage": 0.6386
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "Christopher De Souza | Foo Yee Shoon | Liang Eng Hwa | Lim Swee Say | Vivian Balakrishnan",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Hong Kah",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Mong Seng | Khor Lean Suan Amy | Yeo Cheow Tong | Yeo Khirn Hai Alvin | Zaqy B Mohamad",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Eric Low Siak Meng",
+    "Party": "PAP",
+    "Vote Count": 8308,
+    "Vote Percentage": 0.3726
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Low Thia Khiang",
+    "Party": "WP",
+    "Vote Count": 13989,
+    "Vote Percentage": 0.6274
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Jalan Besar",
+    "Constituency Type": "GRC",
+    "Candidates": "Cheo Chai Chen | Fong Chin Leong | Muhamad Ali Aman | Teo Kway Huang Sebastian | Yeo Boon Keng Vincent",
+    "Party": "SDA",
+    "Vote Count": 26151,
+    "Vote Percentage": 0.3074
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Jalan Besar",
+    "Constituency Type": "GRC",
+    "Candidates": "Heng Chee How | Lee Boon Yang | Lily Neo | Phua Lay Peng Denise | Yaacob Ibrahim",
+    "Party": "PAP",
+    "Vote Count": 58913,
+    "Vote Percentage": 0.6926
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Joo Chiat",
+    "Constituency Type": "SMC",
+    "Candidates": "Chan Soo Sen",
+    "Party": "PAP",
+    "Vote Count": 12226,
+    "Vote Percentage": 0.6501
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Joo Chiat",
+    "Constituency Type": "SMC",
+    "Candidates": "Tan Bin Seng",
+    "Party": "WP",
+    "Vote Count": 6580,
+    "Vote Percentage": 0.3499
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Fu Hai Yien Grace | Halimah Binte Yacob | Lim Boon Heng | Ong Chit Chung | Tharman Shanmugaratnam",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Sin Kek Tong",
+    "Party": "SDA",
+    "Vote Count": 6067,
+    "Vote Percentage": 0.3152
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Matthias Yao Chih",
+    "Party": "PAP",
+    "Vote Count": 13184,
+    "Vote Percentage": 0.6848
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Fatimah Binte Abdul Lateef | Goh Chok Tong | Lim Biow Chuan | Muhammad Faishal bin Ibrahim Khan Surattee | Ong Seh Hong | Seah Kian Peng",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Nee Soon Central",
+    "Constituency Type": "SMC",
+    "Candidates": "Lian Chin Way",
+    "Party": "WP",
+    "Vote Count": 7529,
+    "Vote Percentage": 0.3463
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Nee Soon Central",
+    "Constituency Type": "SMC",
+    "Candidates": "Ong Ah Heng",
+    "Party": "PAP",
+    "Vote Count": 14211,
+    "Vote Percentage": 0.6537
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Nee Soon East",
+    "Constituency Type": "SMC",
+    "Candidates": "Ho Peng Kee",
+    "Party": "PAP",
+    "Vote Count": 20949,
+    "Vote Percentage": 0.6872
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Nee Soon East",
+    "Constituency Type": "SMC",
+    "Candidates": "Poh Lee Guan",
+    "Party": "WP",
+    "Vote Count": 9535,
+    "Vote Percentage": 0.3128
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Ahmad Magad | Chong You Fook Charles | Low Penny | Michael Palmer | Teo Chee Hean | Teo Ser Luck",
+    "Party": "PAP",
+    "Vote Count": 113322,
+    "Vote Percentage": 0.687
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Ishak Haroun | Lee Hock Huat | Lim Bak Chuan | Mohd Hamim Aliyas | Ong Beng Soon Elvin | Yen Kim Khooi",
+    "Party": "SDA",
+    "Vote Count": 51618,
+    "Vote Percentage": 0.313
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Chiam See Tong",
+    "Party": "SDA",
+    "Vote Count": 8245,
+    "Vote Percentage": 0.5582
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Sitoh Yih Pin",
+    "Party": "PAP",
+    "Vote Count": 6527,
+    "Vote Percentage": 0.4418
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Chee Siok Chin | Mohamed Isa Bin Abdul Aziz | Narayanasamy Gogelavany | Neo Ting Wei Christopher | Sng Choon Guan | Yong Chu Leong",
+    "Party": "SDP",
+    "Vote Count": 39537,
+    "Vote Percentage": 0.233
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Hawazi Daipi | Khaw Boon Wan | Ellen Lee Geck Hoon | Lim Wee Kiak | Mohd Maliki Osman | Shanmugam K",
+    "Party": "PAP",
+    "Vote Count": 130170,
+    "Vote Percentage": 0.767
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Rahman Bin Mohamad | Lim Tung Hee | Ng Say Eng | Ong Hock Siong | Tan Lead Shake",
+    "Party": "SDA",
+    "Vote Count": 36948,
+    "Vote Percentage": 0.3149
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Mah Bow Tan | Masagos Zulkifli B M M | Ng Phek Hoong Irene | Ong Kian Min | Sin Boon Ann",
+    "Party": "PAP",
+    "Vote Count": 80376,
+    "Vote Percentage": 0.6851
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Tanjong Pagar",
+    "Constituency Type": "GRC",
+    "Candidates": "Baey Yam Keng | Indranee Thurai Rajah | Koo Tsai Kee | Lee Kuan Yew | Lui Tuck Yew | Tan Chin Siong",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Fong Jen Arthur | Foo Chee Keng Cedric | Ho Geok Choo Madeleine | Lim Hng Kiang | Iswaran S",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Yio Chu Kang",
+    "Constituency Type": "SMC",
+    "Candidates": "Seng Han Thong",
+    "Party": "PAP",
+    "Vote Count": 15726,
+    "Vote Percentage": 0.6828
+  },
+  {
+    "Year": 2006,
+    "Constituency Name": "Yio Chu Kang",
+    "Constituency Type": "SMC",
+    "Candidates": "Yip Yew Weng",
+    "Party": "SDA",
+    "Vote Count": 7307,
+    "Vote Percentage": 0.3172
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Chen Show Mao | Sylvia Lim | Low Thia Khiang | Muhamad Faisal Bin Abdul Manap | Pritam Singh",
+    "Party": "WP",
+    "Vote Count": 72289,
+    "Vote Percentage": 0.5472
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Lim Hwee Hua | Ong Ye Kung | Cynthia Phua | George Yong-Boon Yeo | Zainul Abidin Rasheed",
+    "Party": "PAP",
+    "Vote Count": 59829,
+    "Vote Percentage": 0.4528
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Hin Kee| Inderjit Singh| Intan Azura Binte MOokhtar | Lee Hsien Loong | Seng Han Thong | Yeo Guat Kwang",
+    "Party": "PAP",
+    "Vote Count": 112677,
+    "Vote Percentage": 0.6933
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Lim Tung Hee Arthero | Lim Zirui | Mohamed Mansor Bin Abdul Rahman | Osman Bin Sulaiman | Tan Zhi Xiang | Vigneswari D/O V Ramachandran",
+    "Party": "RP",
+    "Vote Count": 49851,
+    "Vote Percentage": 0.3067
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Chiam See Tong | Lee Yeong Wee | Wilfred Leung | Mohamad Hamim Aliyas | Benjamin Pwee",
+    "Party": "SPP",
+    "Vote Count": 47205,
+    "Vote Percentage": 0.4307
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Hri Kumar Nair | Ng Eng Hen | Josephine Teo | Wong Kan Seng | Zainudin Nordin",
+    "Party": "PAP",
+    "Vote Count": 62385,
+    "Vote Percentage": 0.5693
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Teo Ho Pin",
+    "Party": "PAP",
+    "Vote Count": 20375,
+    "Vote Percentage": 0.6627
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Alec Tok",
+    "Party": "SDP",
+    "Vote Count": 10372,
+    "Vote Percentage": 0.3373
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "GRC",
+    "Candidates": "Gan Kim Yong | Low Yen Ling | Alex Yam ZiMing | Yeo Khirn Hai Alvin | Zaqy Bin Mohamad",
+    "Party": "PAP",
+    "Vote Count": 89710,
+    "Vote Percentage": 0.612
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "GRC",
+    "Candidates": "Jeisialn Sivalingam | Nor Lella Mardiiiah Bte Mohamed | Hazel Poa Koon Koon | Tony Tan Lay Thiam | Teo Kway Huang, Sebastian",
+    "Party": "NSP",
+    "Vote Count": 56885,
+    "Vote Percentage": 0.388
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Gerald Giam Yean Song | Glenda Han Su May | Mohamed Fazli Bin Talip | Png Eng Huat | Eric Tan Heng Chong",
+    "Party": "WP",
+    "Vote Count": 49429,
+    "Vote Percentage": 0.4517
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Lee Yi Shyan | Lim Siang Keat Raymond | Lim Swee Say | Mohd Maliki Bin Osman | Tan Soon Neo Jessica",
+    "Party": "PAP",
+    "Vote Count": 59992,
+    "Vote Percentage": 0.5483
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Yong Guan | Michelle Lee Juen | Tan Jee Say | Wijeysingha Vincent Rene",
+    "Party": "SDP",
+    "Vote Count": 32406,
+    "Vote Percentage": 0.3992
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "De Souza Christopher Jamed | Liang Eng Hwa | Sim Ann | Vivian Balakrishnan",
+    "Party": "PAP",
+    "Vote Count": 48773,
+    "Vote Percentage": 0.6008
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Hong Kah North",
+    "Constituency Type": "SMC",
+    "Candidates": "Amy Khor Lean Suan",
+    "Party": "PAP",
+    "Vote Count": 18156,
+    "Vote Percentage": 0.7061
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Desmond Choo Pey Ching",
+    "Party": "PAP",
+    "Vote Count": 8065,
+    "Vote Percentage": 0.352
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Yaw Shin Leong",
+    "Party": "WP",
+    "Vote Count": 14850,
+    "Vote Percentage": 0.648
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Joo Chiat",
+    "Constituency Type": "SMC",
+    "Candidates": "Charles Chong You Fook",
+    "Party": "PAP",
+    "Vote Count": 9666,
+    "Vote Percentage": 0.5102
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Joo Chiat",
+    "Constituency Type": "SMC",
+    "Candidates": "Yee Jenn Jong",
+    "Party": "WP",
+    "Vote Count": 9278,
+    "Vote Percentage": 0.4898
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Rasheed | Christopher Neo Ting Wei | Noraini Yunus | Ong Beng Ssson Elvin | Ong Hock Siong",
+    "Party": "NSP",
+    "Vote Count": 37786,
+    "Vote Percentage": 0.3304
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Wei Neng | Halimah Binte Yacob | Desmond Lee Ti-Seng (Li ZhiSheng) | Ong Kim Huat | Tharman Shanmugaratnam",
+    "Party": "PAP",
+    "Vote Count": 76595,
+    "Vote Percentage": 0.6696
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Salim Bin Harun | Cheo Chai Chen | Ng Chung Hon | Nicole Rebecca Seah Xue Ling | Yeo Tiong Boon",
+    "Party": "NSP",
+    "Vote Count": 59926,
+    "Vote Percentage": 0.4336
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Fatimah Binte Abdul Lateef | Goh Chok Tong | Seah Kian Peng | Tan Chuan-Jin | Tin Pei Ling",
+    "Party": "PAP",
+    "Vote Count": 78286,
+    "Vote Percentage": 0.5664
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Moulmein-Kallang",
+    "Constituency Type": "GRC",
+    "Candidates": "Chan Sio Phing Frieda | L Somasundaram | Mohd Rahizan Bin Ya'acob | Toh Hong Boon",
+    "Party": "WP",
+    "Vote Count": 31773,
+    "Vote Percentage": 0.4145
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Moulmein-Kallang",
+    "Constituency Type": "GRC",
+    "Candidates": "Lui Tuck Yew | Phua Lay Peng Denise | Edwin Tong Chun Fai | Yaacob Bin Ibrahim",
+    "Party": "PAP",
+    "Vote Count": 44886,
+    "Vote Percentage": 0.5855
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Mountbatten",
+    "Constituency Type": "SMC",
+    "Candidates": "Jeannette Chong-Aruldoss",
+    "Party": "NSP",
+    "Vote Count": 8461,
+    "Vote Percentage": 0.4138
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Mountbatten",
+    "Constituency Type": "SMC",
+    "Candidates": "Lim Biow Chuan",
+    "Party": "PAP",
+    "Vote Count": 11985,
+    "Vote Percentage": 0.5862
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Nee Soon",
+    "Constituency Type": "GRC",
+    "Candidates": "Chong Cham Weng | Oon Kheng Faye, Angela | Poh Lee Guan | Sajeev S/O Kunju Raman Kamalasanan | Yam Poh Nam",
+    "Party": "WP",
+    "Vote Count": 57523,
+    "Vote Percentage": 0.416
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Nee Soon",
+    "Constituency Type": "GRC",
+    "Candidates": "K Shanmugam | Lee Bee Wah | Lim Wee Kiak | Muhammad Faishal Ibrahim | Tay Teck Guan Patrick",
+    "Party": "PAP",
+    "Vote Count": 80740,
+    "Vote Percentage": 0.584
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Gan Thiam Poh | Janil Arusha Puthucheary | Low Penny | Teo Chee Hean | Teo Ser Luck | Zainal Bin Sapari",
+    "Party": "PAP",
+    "Vote Count": 100493,
+    "Vote Percentage": 0.6479
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Harminder Pal Singh | Lee Song Juan | Jeffrey Lim| Mohd Shafni | Sidney Ssoon | Tan Keng Hong",
+    "Party": "SDA",
+    "Vote Count": 54601,
+    "Vote Percentage": 0.3521
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Chia Steve",
+    "Party": "NSP",
+    "Vote Count": 9437,
+    "Vote Percentage": 0.3927
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Cedric Foo Chee Keng",
+    "Party": "PAP",
+    "Vote Count": 14593,
+    "Vote Percentage": 0.6073
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Loh Woon Lee Lina",
+    "Party": "SPP",
+    "Vote Count": 7878,
+    "Vote Percentage": 0.4964
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Sitoh Yih Pin",
+    "Party": "PAP",
+    "Vote Count": 7992,
+    "Vote Percentage": 0.5036
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Punggol East",
+    "Constituency Type": "SMC",
+    "Candidates": "Lee Li Lian",
+    "Party": "WP",
+    "Vote Count": 12777,
+    "Vote Percentage": 0.4101
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Punggol East",
+    "Constituency Type": "SMC",
+    "Candidates": "Lim Bak Chuan Desmond",
+    "Party": "SDA",
+    "Vote Count": 1387,
+    "Vote Percentage": 0.0445
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Punggol East",
+    "Constituency Type": "SMC",
+    "Candidates": "Michael Palmer",
+    "Party": "PAP",
+    "Vote Count": 16994,
+    "Vote Percentage": 0.5454
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Tan Chin Siong",
+    "Party": "PAP",
+    "Vote Count": 18609,
+    "Vote Percentage": 0.671
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Yip Yew Weng",
+    "Party": "NSP",
+    "Vote Count": 9123,
+    "Vote Percentage": 0.329
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Hawazi Daipi | Khaw Boon Wan| Ellen Lee Geck Hoon | Ong Teng Koon| Vikram Nair",
+    "Party": "PAP",
+    "Vote Count": 84252,
+    "Vote Percentage": 0.639
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "James Gomez | Luo Jie Jarrod | Mohd Isa | Sadasivam V | John Tan Liang Joo",
+    "Party": "SDP",
+    "Vote Count": 47605,
+    "Vote Percentage": 0.361
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Sengkang West",
+    "Constituency Type": "SMC",
+    "Candidates": "Koh Choong Yong",
+    "Party": "WP",
+    "Vote Count": 10591,
+    "Vote Percentage": 0.4189
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Sengkang West",
+    "Constituency Type": "SMC",
+    "Candidates": "Lam Pin Min",
+    "Party": "PAP",
+    "Vote Count": 14689,
+    "Vote Percentage": 0.5811
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Baey Yam Keng | Heng Swee Keat | Mah Bow Tan | Masagos Zulkifli Bmm | Irene Ng Phek Hoong",
+    "Party": "PAP",
+    "Vote Count": 72728,
+    "Vote Percentage": 0.5722
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Fong Chin Leong | Goh Keow Wah| Goh Meng Seng | Raymond Lim Peng Ann | Syafarin Bin Sarif",
+    "Party": "NSP",
+    "Vote Count": 54381,
+    "Vote Percentage": 0.4278
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Tanjong Pagar",
+    "Constituency Type": "GRC",
+    "Candidates": "Chan Chun Sing | Chia Shi-Lu | Indranee Thurai Rajah | Lee Kuan Yew | Lily Tirtasana Neo",
+    "Party": "PAP",
+    "Vote Count": "na",
+    "Vote Percentage": "na"
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Arthur Fong | Foo Mee Har | Lim Hng Kiang | S Iswaran | Lawrence Wong",
+    "Party": "PAP",
+    "Vote Count": 72563,
+    "Vote Percentage": 0.6657
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Ho Soak Harn | Kenneth Andrew Jeyaretnam | Kumar S/O Appavoo | Low Chiak Huan | Zhu Lai Cheng",
+    "Party": "RP",
+    "Vote Count": 36443,
+    "Vote Percentage": 0.3343
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Whampoa",
+    "Constituency Type": "SMC",
+    "Candidates": "Heng Chee How",
+    "Party": "PAP",
+    "Vote Count": 13028,
+    "Vote Percentage": 0.661
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Whampoa",
+    "Constituency Type": "SMC",
+    "Candidates": "Ken Sun",
+    "Party": "NSP",
+    "Vote Count": 6683,
+    "Vote Percentage": 0.339
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Yuhua",
+    "Constituency Type": "SMC",
+    "Candidates": "Grace Fu Hai Yien",
+    "Party": "PAP",
+    "Vote Count": 14093,
+    "Vote Percentage": 0.6686
+  },
+  {
+    "Year": 2011,
+    "Constituency Name": "Yuhua",
+    "Constituency Type": "SMC",
+    "Candidates": "Teo Soh Lung",
+    "Party": "SDP",
+    "Vote Count": 6986,
+    "Vote Percentage": 0.3314
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Chen Show Mao | Sylvia Lim | Low Thia Khiang | Md Faisal Bin Abdul Manap | Pritam Singh",
+    "Party": "WP",
+    "Vote Count": 70050,
+    "Vote Percentage": 0.5096
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Chau Eng Leong | K Muralidharan Pillai | Lye Thiam Fatt Joseph Victor | Shamsul Kamar Bin Mohamed Razali | Yeo Guat Kwang",
+    "Party": "PAP",
+    "Vote Count": 67424,
+    "Vote Percentage": 0.4904
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Hin Kee | David Darryl Wilson | Gan Thiam Poh | Intan Azura Binte Mokhtar | Koh Poh Koon| Lee Hsien Loong",
+    "Party": "PAP",
+    "Vote Count": 135316,
+    "Vote Percentage": 0.7864
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Goh Keow Wah | Jesse Loo Hoe Bock | Roy Ngerng Yi Ling | Osman Sulaiman | M Ravi | Siva Chandran",
+    "Party": "RP",
+    "Vote Count": 36758,
+    "Vote Percentage": 0.2136
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Chee Hong Tat | Chong Kee Hiong | Ng Eng Hen | Saktiandi Bin Supaat | Josephine Teo",
+    "Party": "PAP",
+    "Vote Count": 86701,
+    "Vote Percentage": 0.7359
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Law Kim Hwee | Long YaoGuang, Don Bryan | Mohamad Abdillah Bin Zamzuri | Mohamad Hamim Bin Aliyas | Pwee Yek Kwan Benjamin",
+    "Party": "SPP",
+    "Vote Count": 31108,
+    "Vote Percentage": 0.2641
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bukit Batok",
+    "Constituency Type": "SMC",
+    "Candidates": "David Ong Kim Huat",
+    "Party": "PAP",
+    "Vote Count": 18234,
+    "Vote Percentage": 0.7302
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bukit Batok",
+    "Constituency Type": "SMC",
+    "Candidates": "Sadasivam V",
+    "Party": "SDP",
+    "Vote Count": 6588,
+    "Vote Percentage": 0.2638
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bukit Batok",
+    "Constituency Type": "SMC",
+    "Candidates": "Samir Salim Neji",
+    "Party": "Independent",
+    "Vote Count": 150,
+    "Vote Percentage": 0.006
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Khung Wai Yeen",
+    "Party": "SDP",
+    "Vote Count": 10152,
+    "Vote Percentage": 0.3162
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Teo Ho Pin",
+    "Party": "PAP",
+    "Vote Count": 21954,
+    "Vote Percentage": 0.6838
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "GRC",
+    "Candidates": "Gan Kim Yong | Low Yen Ling | Yee Chia Hsing | Zaqy Mohamad",
+    "Party": "PAP",
+    "Vote Count": 84850,
+    "Vote Percentage": 0.7691
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "GRC",
+    "Candidates": "Goh Meng Seng | Lee Tze Shih | Low Wai Choo | Syafarin Bin Sarif",
+    "Party": "PPP",
+    "Vote Count": 25475,
+    "Vote Percentage": 0.2309
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Gerald Giam Yean Song | Daniel Goh Pei Siong | Mohamed Fairoz Bin Shariff | Leon Perera",
+    "Party": "WP",
+    "Vote Count": 35622,
+    "Vote Percentage": 0.3927
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Lee Yi Shyan | Lim Swee Say | Mohd Maliki Bin Osman| Tan Soon Neo Jessica",
+    "Party": "PAP",
+    "Vote Count": 55093,
+    "Vote Percentage": 0.6073
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Fengshan",
+    "Constituency Type": "SMC",
+    "Candidates": "Cheryl Chan Wei Ling",
+    "Party": "PAP",
+    "Vote Count": 12417,
+    "Vote Percentage": 0.575
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Fengshan",
+    "Constituency Type": "SMC",
+    "Candidates": "Dennis Tan Lip Fong",
+    "Party": "WP",
+    "Vote Count": 9176,
+    "Vote Percentage": 0.425
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "Chee Soon Juan| Chong Wai Fung | Md Sidek Bin Mallek| Paul Anatharajah Tambyah",
+    "Party": "SDP",
+    "Vote Count": 31494,
+    "Vote Percentage": 0.334
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "Christopher De Souza | Liang Eng Hwa | Sim Ann | Vivian Balakrishnan",
+    "Party": "PAP",
+    "Vote Count": 62786,
+    "Vote Percentage": 0.666
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Hong Kah North",
+    "Constituency Type": "SMC",
+    "Candidates": "Amy Khor Lean Suan",
+    "Party": "PAP",
+    "Vote Count": 19628,
+    "Vote Percentage": 0.7476
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Hong Kah North",
+    "Constituency Type": "SMC",
+    "Candidates": "Ravi Philemon",
+    "Party": "SPP",
+    "Vote Count": 6627,
+    "Vote Percentage": 0.2524
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Lee Hong Chuang",
+    "Party": "PAP",
+    "Vote Count": 9565,
+    "Vote Percentage": 0.4234
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Png Eng Huat",
+    "Party": "WP",
+    "Vote Count": 13027,
+    "Vote Percentage": 0.5766
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Jalan Besar",
+    "Constituency Type": "GRC",
+    "Candidates": "Chan Sio Phing Frieda (Zeng Xiao Ping) | L Somasundaram | Redzwan Hafidz Abdul Razak | Sim Tian Hock (Shen TianFu)",
+    "Party": "WP",
+    "Vote Count": 30302,
+    "Vote Percentage": 0.3225
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Jalan Besar",
+    "Constituency Type": "GRC",
+    "Candidates": "Heng Chee How | Lily Neo | Denise Phua Lay Peng | Yaacob Ibrahim",
+    "Party": "PAP",
+    "Vote Count": 63644,
+    "Vote Percentage": 0.6775
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Wei Neng | Desmond Lee | Rahayu Binte Mahzam | Tharman Shanmugaratnam | Tan Wu Meng",
+    "Party": "PAP",
+    "Vote Count": 95228,
+    "Vote Percentage": 0.7929
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Foo Ming Jin David | Sukdeu Singh | Tan Peng Aann| Wong Chee Wai | Wong Soon Hong",
+    "Party": "SGF",
+    "Vote Count": 24869,
+    "Vote Percentage": 0.2071
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Chen JiaXi",
+    "Party": "WP",
+    "Vote Count": 8833,
+    "Vote Percentage": 0.3359
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Cheo Chai Chen",
+    "Party": "NSP",
+    "Vote Count": 215,
+    "Vote Percentage": 0.0082
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Tin Pei Ling",
+    "Party": "PAP",
+    "Vote Count": 17251,
+    "Vote Percentage": 0.656
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Fatimah Binte Abdul Lateef | Goh Chok Tong | Seah Kian Peng | Tan Chuan-Jin | Tong Chun Fai Edwin Charles",
+    "Party": "PAP",
+    "Vote Count": 85138,
+    "Vote Percentage": 0.6407
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Firuz Khan | He Tingru | Ng Foo Eng | Terence Tan | Yee Jenn Jong",
+    "Party": "WP",
+    "Vote Count": 47753,
+    "Vote Percentage": 0.3593
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Marsiling-Yew Tee",
+    "Constituency Type": "GRC",
+    "Candidates": "Damanhuri Bin Abas | Lim Boon Heng | Tan Liang Joo John | Wong Souk Yee",
+    "Party": "SDP",
+    "Vote Count": 31185,
+    "Vote Percentage": 0.3127
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Marsiling-Yew Tee",
+    "Constituency Type": "GRC",
+    "Candidates": "Halimah Yacob | Ong Teng Koon | Lawrence Wong | Alex Yam Ziming",
+    "Party": "PAP",
+    "Vote Count": 68546,
+    "Vote Percentage": 0.6873
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Mountbatten",
+    "Constituency Type": "SMC",
+    "Candidates": "Jeannette Chong - Aruldoss",
+    "Party": "SPP",
+    "Vote Count": 6004,
+    "Vote Percentage": 0.2814
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Mountbatten",
+    "Constituency Type": "SMC",
+    "Candidates": "Lim Biow Chuan",
+    "Party": "PAP",
+    "Vote Count": 15331,
+    "Vote Percentage": 0.7186
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Nee Soon",
+    "Constituency Type": "GRC",
+    "Candidates": "Foo Seck Guan | Gurmit Singh S/O Sadhu Singh | Koh Tiong Yee | Cheryl Loh Xiu Wen | Ron Tan Jun Yen",
+    "Party": "WP",
+    "Vote Count": 40841,
+    "Vote Percentage": 0.3317
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Nee Soon",
+    "Constituency Type": "GRC",
+    "Candidates": "K Shanmugam | Kwek Hian Chuan | Lee Bee Wah | Muhammad Faishal Ibrahim | Ng Kok Kwang Louis",
+    "Party": "PAP",
+    "Vote Count": 82287,
+    "Vote Percentage": 0.6683
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Abu Bin Mohamed | Harminder Pal Singh S/O Gurcharan Singh | Lim Bak Chuan Desmond | Lim Tung Hee Arthero | Ong Teik Seng | Wong Way Weng",
+    "Party": "SDA",
+    "Vote Count": 46550,
+    "Vote Percentage": 0.2711
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Janil Puthucheary | Ng Chee Meng | Sun XueLing | Teo Chee Hean | Teo Ser Luck | Zainal Bin Sapari",
+    "Party": "PAP",
+    "Vote Count": 125166,
+    "Vote Percentage": 0.7289
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Cedric Foo Chee Keng",
+    "Party": "PAP",
+    "Vote Count": 18017,
+    "Vote Percentage": 0.7635
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Ong Beng Soon Elvin",
+    "Party": "NSP",
+    "Vote Count": 5581,
+    "Vote Percentage": 0.2365
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Loh Woon Lee Lina",
+    "Party": "SPP",
+    "Vote Count": 5368,
+    "Vote Percentage": 0.3361
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Sitoh Yih Pin",
+    "Party": "PAP",
+    "Vote Count": 10602,
+    "Vote Percentage": 0.6639
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Punggol East",
+    "Constituency Type": "SMC",
+    "Candidates": "Charles Chong You Fook",
+    "Party": "PAP",
+    "Vote Count": 16977,
+    "Vote Percentage": 0.5177
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Punggol East",
+    "Constituency Type": "SMC",
+    "Candidates": "Lee Li Lian",
+    "Party": "WP",
+    "Vote Count": 15818,
+    "Vote Percentage": 0.4823
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Han Hui Hui",
+    "Party": "Independent",
+    "Vote Count": 2630,
+    "Vote Percentage": 0.1003
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Kumar S/O Appavoo",
+    "Party": "RP",
+    "Vote Count": 3333,
+    "Vote Percentage": 0.1272
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Tan Chin Siong",
+    "Party": "PAP",
+    "Vote Count": 20246,
+    "Vote Percentage": 0.7725
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Rasheed S/O Y Abdul Kuthus | Lim Tong Zhen| Ng Chung Hon | Yadzeth Bin Hairis | Yeo Ren-Yuan",
+    "Party": "NSP",
+    "Vote Count": 37087,
+    "Vote Percentage": 0.2772
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Amrin Amin | Khaw Boon Wan | Lim Wee Kiak | Ong Ye Kung | Vikram Nair",
+    "Party": "PAP",
+    "Vote Count": 96718,
+    "Vote Percentage": 0.7228
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Sengkang West",
+    "Constituency Type": "SMC",
+    "Candidates": "Koh Choong Yong",
+    "Party": "WP",
+    "Vote Count": 10721,
+    "Vote Percentage": 0.3787
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Sengkang West",
+    "Constituency Type": "SMC",
+    "Candidates": "Lam Pin Min",
+    "Party": "PAP",
+    "Vote Count": 17586,
+    "Vote Percentage": 0.6213
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Baey Yam Keng | Cheng Li Hui | Desmond Choo Pey Ching | Heng Swee Keat | Masagos Zulkifli",
+    "Party": "PAP",
+    "Vote Count": 95305,
+    "Vote Percentage": 0.7207
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Choong Hon Heng | Fong Chin Leong | Lim Tean | Nor Lella Mardiiiah Bte Mohmed | Teo Kway Huang Sebastian",
+    "Party": "NSP",
+    "Vote Count": 36943,
+    "Vote Percentage": 0.2793
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Tanjong Pagar",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Yong Guan | Chirag Praful Desai | Chiu Weng Hoe Melvyn | Mohamad Fahmi Bin Ahmad Rais | Tan Jee Say",
+    "Party": "SGF",
+    "Vote Count": 25998,
+    "Vote Percentage": 0.2229
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Tanjong Pagar",
+    "Constituency Type": "GRC",
+    "Candidates": "Chan Chun Sing | Chia Shi-Lu | Indranee Thurai Rajah | Joan Pereira | Melvin Yong Yik Chye",
+    "Party": "PAP",
+    "Vote Count": 90635,
+    "Vote Percentage": 0.7771
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Foo Mee Har | Lim Hng Kiang | Siswaran | Patrick Tay Teck Guan",
+    "Party": "PAP",
+    "Vote Count": 71214,
+    "Vote Percentage": 0.7857
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Kenneth Andrew Jeyaretnam | Noraini Bte Yunus | Soh Guan Soon | Zhu LaiCheng",
+    "Party": "RP",
+    "Vote Count": 19426,
+    "Vote Percentage": 0.2143
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Yuhua",
+    "Constituency Type": "SMC",
+    "Candidates": "Grace Fu Hai Yien",
+    "Party": "PAP",
+    "Vote Count": 15324,
+    "Vote Percentage": 0.7355
+  },
+  {
+    "Year": 2015,
+    "Constituency Name": "Yuhua",
+    "Constituency Type": "SMC",
+    "Candidates": "Go Hui Leng",
+    "Party": "SDP",
+    "Vote Count": 5512,
+    "Vote Percentage": 0.2645
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Chan Hui Yuh | Chua Eng Leong | Victor Lye Thiam Fatt | Shamsul Kamar Bin Mohamed Razali | Alex Yeo Sheng Chye",
+    "Party": "PAP",
+    "Vote Count": 57330,
+    "Vote Percentage": 0.4005
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Aljunied",
+    "Constituency Type": "GRC",
+    "Candidates": "Gerald Giam Yean Song | Sylvia Lim | Muhamad Faisal Bin Abdul Manap | Leon Perera | Pritam Singh",
+    "Party": "WP",
+    "Vote Count": 85815,
+    "Vote Percentage": 0.5995
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Darryl David | Gan Thiam Poh | Lee Hsien Loong | Nadia Ahmad Samdin | Ng Ling Ling",
+    "Party": "PAP",
+    "Vote Count": 124597,
+    "Vote Percentage": 0.7191
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Ang Mo Kio",
+    "Constituency Type": "GRC",
+    "Candidates": "Kenneth Andrew Jeyaretnam | Noraini Bte Yunus | Soh Guan Soon | Yeo Yao Hui, Charles | Zhu Laicheng",
+    "Party": "RP",
+    "Vote Count": 48677,
+    "Vote Percentage": 0.2809
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Chee Hong Tat | Chong Kee Hiong | Ng Eng Hen | Saktiandi Bin Supaat",
+    "Party": "PAP",
+    "Vote Count": 62983,
+    "Vote Percentage": 0.6723
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Bishan-Toa Payoh",
+    "Constituency Type": "GRC",
+    "Candidates": "Steve Chia | Melvyn Chiu | Williiamson Lee | Osman Sulaiman",
+    "Party": "SPP",
+    "Vote Count": 30696,
+    "Vote Percentage": 0.3277
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Bukit Batok",
+    "Constituency Type": "SMC",
+    "Candidates": "Chee Soon Juan",
+    "Party": "SDP",
+    "Vote Count": 12787,
+    "Vote Percentage": 0.452
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Bukit Batok",
+    "Constituency Type": "SMC",
+    "Candidates": "Murali Pillai",
+    "Party": "PAP",
+    "Vote Count": 15500,
+    "Vote Percentage": 0.548
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Liang Eng Hwa",
+    "Party": "PAP",
+    "Vote Count": 18085,
+    "Vote Percentage": 0.5373
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Bukit Panjang",
+    "Constituency Type": "SMC",
+    "Candidates": "Paul Ananth Tambyah",
+    "Party": "SDP",
+    "Vote Count": 15576,
+    "Vote Percentage": 0.4627
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Rahman Bin Mohamad | Choo Shaun Ming | Tan Meng Wah | Yuen Kin Pheng",
+    "Party": "PSP",
+    "Vote Count": 42012,
+    "Vote Percentage": 0.4136
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Chua Chu Kang",
+    "Constituency Type": "GRC",
+    "Candidates": "Gan Kim Yong | Low Yen Ling | Don Wee | Zhulkarnain Abdul Rahim",
+    "Party": "PAP",
+    "Vote Count": 59554,
+    "Vote Percentage": 0.5864
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Abdul Shariff Aboo Kassim | Foo Seck Guan | Dylan Ng | Nicole Seah | Terence Tan Li-Chern",
+    "Party": "WP",
+    "Vote Count": 53375,
+    "Vote Percentage": 0.4661
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "East Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Cheryl Chan Wei Ling | Heng Swee Keat | Mohd Maliki Bin Osman | Tan Kiat How | Tan Soon Neo Jessica",
+    "Party": "PAP",
+    "Vote Count": 61144,
+    "Vote Percentage": 0.5339
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "Min Cheong | James Gomez | Alfred Tan | Tan Jee Say",
+    "Party": "SDP",
+    "Vote Count": 36100,
+    "Vote Percentage": 0.3364
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Holland-Bukit Timah",
+    "Constituency Type": "GRC",
+    "Candidates": "Edward Chia Bing Hui | De Souza Christopher | Sim Ann | Vivian Balakrishnan",
+    "Party": "PAP",
+    "Vote Count": 71218,
+    "Vote Percentage": 0.6636
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Hong Kah North",
+    "Constituency Type": "SMC",
+    "Candidates": "Amy Khor Lean Suan",
+    "Party": "PAP",
+    "Vote Count": 16347,
+    "Vote Percentage": 0.6099
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Hong Kah North",
+    "Constituency Type": "SMC",
+    "Candidates": "Gigene Wong",
+    "Party": "PSP",
+    "Vote Count": 10457,
+    "Vote Percentage": 0.3901
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Lee Hong Chuang",
+    "Party": "PAP",
+    "Vote Count": 9791,
+    "Vote Percentage": 0.3879
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Hougang",
+    "Constituency Type": "SMC",
+    "Candidates": "Dennis Tan Lip Fong",
+    "Party": "WP",
+    "Vote Count": 15451,
+    "Vote Percentage": 0.6121
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Jalan Besar",
+    "Constituency Type": "GRC",
+    "Candidates": "Michael Fang Amin | Leong Sze Hian | Lim Tean | Nor Azlan Bin Sulaiman",
+    "Party": "PV",
+    "Vote Count": 34261,
+    "Vote Percentage": 0.3464
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Jalan Besar",
+    "Constituency Type": "GRC",
+    "Candidates": "Heng Chee How | Denise Phua Lay Peng | Josephine Teo | Wan Rizal",
+    "Party": "PAP",
+    "Vote Count": 64631,
+    "Vote Percentage": 0.6536
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Huang Wei Zhong Shawn | Rahayu Binte Mahzam | Tan Wu Meng | Tharman Shanmugaratnam | Xie Yao Quan",
+    "Party": "PAP",
+    "Vote Count": 91846,
+    "Vote Percentage": 0.7461
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Jurong",
+    "Constituency Type": "GRC",
+    "Candidates": "Michelle Lee Juen | Liyana Dhamirah | Ravi Philemon | Nicholas Tang | Alec Tok",
+    "Party": "RDU",
+    "Vote Count": 31260,
+    "Vote Percentage": 0.2539
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Kebun Baru",
+    "Constituency Type": "SMC",
+    "Candidates": "Kumaran Pillai",
+    "Party": "PSP",
+    "Vote Count": 7842,
+    "Vote Percentage": 0.3708
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Kebun Baru",
+    "Constituency Type": "SMC",
+    "Candidates": "Kwek Hian Chuan",
+    "Party": "PAP",
+    "Vote Count": 13309,
+    "Vote Percentage": 0.6292
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Goh Meng Seng",
+    "Party": "PPP",
+    "Vote Count": 7489,
+    "Vote Percentage": 0.2826
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "MacPherson",
+    "Constituency Type": "SMC",
+    "Candidates": "Tin Pei Ling",
+    "Party": "PAP",
+    "Vote Count": 19009,
+    "Vote Percentage": 0.7174
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Azhar Latip | Fadli Fawzi | Nathaniel Koh | Ron Tan Jun Yen | Yee Jenn Jong",
+    "Party": "WP",
+    "Vote Count": 55047,
+    "Vote Percentage": 0.4226
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Marine Parade",
+    "Constituency Type": "GRC",
+    "Candidates": "Mohd Fahmi Aliman | Seah Kian Peng | Tan Chuan-Jin | Tan See Leng | Edwin Tong Chun Fai",
+    "Party": "PAP",
+    "Vote Count": 75203,
+    "Vote Percentage": 0.5774
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Marsiling-Yew Tee",
+    "Constituency Type": "GRC",
+    "Candidates": "Damanhuri Bin Abas | Khung Wai Yeen | Lim Boon Heng | Benjamin Pwee",
+    "Party": "SDP",
+    "Vote Count": 40690,
+    "Vote Percentage": 0.3682
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Marsiling-Yew Tee",
+    "Constituency Type": "GRC",
+    "Candidates": "Hany Soh Hui Bin | Lawrence Wong | Alex Yam Ziming | Zaqy Mohamad",
+    "Party": "PAP",
+    "Vote Count": 69813,
+    "Vote Percentage": 0.6318
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Marymount",
+    "Constituency Type": "SMC",
+    "Candidates": "Ang Yong Guan",
+    "Party": "PSP",
+    "Vote Count": 9943,
+    "Vote Percentage": 0.4496
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Marymount",
+    "Constituency Type": "SMC",
+    "Candidates": "Gan Siow Huang",
+    "Party": "PAP",
+    "Vote Count": 12173,
+    "Vote Percentage": 0.5504
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Mountbatten",
+    "Constituency Type": "SMC",
+    "Candidates": "Lim Biow Chuan",
+    "Party": "PAP",
+    "Vote Count": 16285,
+    "Vote Percentage": 0.7382
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Mountbatten",
+    "Constituency Type": "SMC",
+    "Candidates": "Sivakumaran Chellappa",
+    "Party": "PV",
+    "Vote Count": 5775,
+    "Vote Percentage": 0.2618
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Nee Soon",
+    "Constituency Type": "GRC",
+    "Candidates": "Bowyer Bradley Peter | Kalayarasu Manickam | Muhammad Taufik Bin Supan | S Nallakaruppan | Tay Chye Seng",
+    "Party": "PSP",
+    "Vote Count": 53131,
+    "Vote Percentage": 0.381
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Nee Soon",
+    "Constituency Type": "GRC",
+    "Candidates": "Derrick Goh Soon Hee | K. Shanmugam | Muhammad Faishal Ibrahim | Ng Kok Kwang, Louis | Carrie Tan Huimin",
+    "Party": "PAP",
+    "Vote Count": 86308,
+    "Vote Percentage": 0.619
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Abu Bin Mohamed | Harminder Pal Singh s/o Gurcharan Singh | Kuswadi Bin Atnawi | Lim Bak Chuan Desmond | Kelvin Ong Soon Huat",
+    "Party": "SDA",
+    "Vote Count": 37237,
+    "Vote Percentage": 0.2367
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Goh Keow Wah | Lim Kay Cheow Jireh | Mohamed Nassir Ismail | Prabu Ramachandran | Vigneswari VR",
+    "Party": "PV",
+    "Vote Count": 19147,
+    "Vote Percentage": 0.1217
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Pasir Ris-Punggol",
+    "Constituency Type": "GRC",
+    "Candidates": "Janil Puthucheary | Sharael Taha | Desmond Tan | Teo Chee Hean | Yeo Wan Ling",
+    "Party": "PAP",
+    "Vote Count": 100932,
+    "Vote Percentage": 0.6416
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Cheang Peng Wah",
+    "Party": "INDP",
+    "Vote Count": 655,
+    "Vote Percentage": 0.0278
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Lim Cher Hong",
+    "Party": "PSP",
+    "Vote Count": 8289,
+    "Vote Percentage": 0.3522
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Pioneer",
+    "Constituency Type": "SMC",
+    "Candidates": "Patrick Tay Teck Guan",
+    "Party": "PAP",
+    "Vote Count": 14593,
+    "Vote Percentage": 0.62
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Jose Raymond",
+    "Party": "SPP",
+    "Vote Count": 7302,
+    "Vote Percentage": 0.3933
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Potong Pasir",
+    "Constituency Type": "SMC",
+    "Candidates": "Sitoh Yih Pin",
+    "Party": "PAP",
+    "Vote Count": 11264,
+    "Vote Percentage": 0.6067
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Punggol West",
+    "Constituency Type": "SMC",
+    "Candidates": "Sun Xueling",
+    "Party": "PAP",
+    "Vote Count": 15655,
+    "Vote Percentage": 0.6098
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Punggol West",
+    "Constituency Type": "SMC",
+    "Candidates": "Tan Chen Chen",
+    "Party": "WP",
+    "Vote Count": 10017,
+    "Vote Percentage": 0.3902
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Kumar Appavoo",
+    "Party": "RP",
+    "Vote Count": 5922,
+    "Vote Percentage": 0.2599
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Radin Mas",
+    "Constituency Type": "SMC",
+    "Candidates": "Melvin Yong Yik Chye",
+    "Party": "PAP",
+    "Vote Count": 16864,
+    "Vote Percentage": 0.7401
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Lim Wee Kiak | Mariam Jaafar | Ong Ye Kung | Poh Li San | Vikram Nair",
+    "Party": "PAP",
+    "Vote Count": 94176,
+    "Vote Percentage": 0.6729
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Sembawang",
+    "Constituency Type": "GRC",
+    "Candidates": "Ng Chung Hon | Sathin s/o Ravindran | Sebastian Teo | Yadzeth Bin Hairis | Yeo Tiong Boon",
+    "Party": "NSP",
+    "Vote Count": 45778,
+    "Vote Percentage": 0.3271
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Sengkang",
+    "Constituency Type": "GRC",
+    "Candidates": "Amrin Amin | Lam Pin Min | Lye Hoong Yip Raymond | Ng Chee Meng",
+    "Party": "PAP",
+    "Vote Count": 55319,
+    "Vote Percentage": 0.4788
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Sengkang",
+    "Constituency Type": "GRC",
+    "Candidates": "Chua Kheng Wee | He Ting Ru | Jamus Jerome Lim | Raeesah Begum Binte Farid Khan",
+    "Party": "WP",
+    "Vote Count": 60217,
+    "Vote Percentage": 0.5212
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Baey Yam Keng | Cheng Li Hui | Desmond Choo Pey Ching | Koh Poh Koon | Masagos Zulkifli",
+    "Party": "PAP",
+    "Vote Count": 94668,
+    "Vote Percentage": 0.6641
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Tampines",
+    "Constituency Type": "GRC",
+    "Candidates": "Choong Hon Heng | Fong Chin Leong | Mohd Ridzwan Bin Mohammad | Vincent Ng Kian Guan | Yeo Ren-Yuan",
+    "Party": "NSP",
+    "Vote Count": 47875,
+    "Vote Percentage": 0.3359
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Tanjong Pagar",
+    "Constituency Type": "GRC",
+    "Candidates": "A’bas Bin Kasmani | Chua Teck Leong, Michael | Harish Pillay | Low Wei Ling | Soon Jun Wei, Terence",
+    "Party": "PSP",
+    "Vote Count": 45807,
+    "Vote Percentage": 0.369
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Tanjong Pagar",
+    "Constituency Type": "GRC",
+    "Candidates": "Chan Chun Sing | Eric Chua Swee Leong | Indranee Thurai Rajah | Joan Pereira | Alvin Tan Sheng Hui",
+    "Party": "PAP",
+    "Vote Count": 78330,
+    "Vote Percentage": 0.631
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Ang Wei Neng | Foo Mee Har | Desmond Lee Ti-Seng | Rachel Ong Sin Yen | S Iswaran",
+    "Party": "PAP",
+    "Vote Count": 71658,
+    "Vote Percentage": 0.5168
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "West Coast",
+    "Constituency Type": "GRC",
+    "Candidates": "Khoo Poh Tiong Jeffrey | Leong Mun Wai | N. Loganathan | Hazel Poa | Tan Cheng Bock",
+    "Party": "PSP",
+    "Vote Count": 66996,
+    "Vote Percentage": 0.4832
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Yio Chu Kang",
+    "Constituency Type": "SMC",
+    "Candidates": "Kayla Low",
+    "Party": "PSP",
+    "Vote Count": 9519,
+    "Vote Percentage": 0.3918
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Yio Chu Kang",
+    "Constituency Type": "SMC",
+    "Candidates": "Yip Hon Weng",
+    "Party": "PAP",
+    "Vote Count": 14775,
+    "Vote Percentage": 0.6082
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Yuhua",
+    "Constituency Type": "SMC",
+    "Candidates": "Grace Fu Hai Yien",
+    "Party": "PAP",
+    "Vote Count": 14131,
+    "Vote Percentage": 0.7054
+  },
+  {
+    "Year": 2020,
+    "Constituency Name": "Yuhua",
+    "Constituency Type": "SMC",
+    "Candidates": "Robin Low",
+    "Party": "SDP",
+    "Vote Count": 5901,
+    "Vote Percentage": 0.2946
+  }
+]

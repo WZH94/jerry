@@ -1,0 +1,78 @@
+#map { 
+	height: 550px;
+	width: 1000px;
+	top: 50px;
+	left: 150px;
+}
+
+/* remove label background elements */
+.leaflet-tooltip.map-labels {
+	background-color: transparent;
+	border: transparent;
+	box-shadow: none;
+	font-weight: 600;
+	font-size: 5px;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.mainLegend {
+	padding: 5px 10px;
+	font: 10px Arial, Helvetica, sans-serif;
+	background: #fff;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	line-height: 5px;
+}
+.mainLegend h4 {
+	text-align: center;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: black;
+	font-weight: 600;
+}
+
+.mainLegend h3 {
+	text-align: center;
+	font-size: 10px;
+	color: black;
+	font-weight: 500;
+}
+
+.mainLegend h2L {
+	float: left;
+	color: black;
+}
+
+.mainLegend h2R {
+	float: right;
+	color: black;
+}
+
+.mainLegend span {
+	bottom: 3px;
+	padding-right: 10px;
+}
+
+.mainLegend i {
+	width: 2px;
+	height: 15px;
+	float: left;
+}
+
+.mainLegend t {
+	width: 15px;
+	height: 2px;
+	float: left;
+}
