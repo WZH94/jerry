@@ -15,16 +15,7 @@
 }
 
 .info {
-    padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
-}
-.info h4 {
-    margin: 0 0 5px;
-    color: #777;
 }
 
 .mainLegend {
@@ -76,3 +67,33 @@
 	height: 2px;
 	float: left;
 }
+
+.leaflet-top.leaflet-left {
+  display: flex;
+  align-items: center;
+  background: #fefefe;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  /* border: 1px solid black; */
+  border-radius: 8px;
+
+  > .info {
+    margin: 0;
+    margin-right: 12px;
+  }
+
+  > button {
+    margin: 0 4px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    background: white;
+    border-radius: 8px;
+    border: 1px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+  }
+
+  > button:hover:enabled {
+    background: #d2d2d2;
+  }
