@@ -1,8 +1,13 @@
-const blueLowestColour = "#f7fbff";
-const blueHighestColour = "#08306b";
+const blueLowestColour = "#fff7fb";
+const blueMiddleColour = "#045a8d";
+const blueHighestColour = "#023858";
 
-const redLowestColour = "#fff5f0";
-const redHighestColour = "#67000d";
+const redLowestColour = "#fff7ec";
+const redMiddleColour = "#b30000";
+const redHighestColour = "#7f0000";
+
+const redOutlineColour = "#67001f";
+const blueOutlineColour = "#053061";
 
 const defaultColour = "#737373";
 
@@ -162,32 +167,53 @@ function interpolate(color1, color2, percent) {
   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
-function getFillColour(percentage) {
-  // From highest to middle colour
-  if (percentage >= 50.0) {
-    return interpolate(
-      redLowestColour,
-      redHighestColour,
-      ((percentage - 50.0) * 2.0) / 100.0,
-    );
+function getConstituencyWinMarginFillColour(winMargin) {
+  // PAP won
+  if (winMargin >= 0.0) {
+    // Win margins are typically within 50%, so have the largest colour difference be between 0% - 50%
+    if (winMargin <= 50.0) {
+      return interpolate(
+        redLowestColour,
+        redMiddleColour,
+        winMargin * 2.0 / 100.0,
+      );
+    }
+    else {
+      return interpolate(
+        redMiddleColour,
+        redHighestColour,
+        (winMargin - 50.0) * 2.0 / 100.0,
+      );
+    }
   }
   // From lowest to middle colour
-  else if (percentage >= 0.0) {
-    return interpolate(
-      blueHighestColour,
-      blueLowestColour,
-      (percentage * 2.0) / 100.0,
-    );
+  else if (winMargin < 0.0) {
+    const flippedWinMargin = winMargin * -1.0;
+    
+    if (flippedWinMargin <= 50.0) {
+      return interpolate(
+        blueLowestColour,
+        blueMiddleColour,
+        flippedWinMargin * 2.0 / 100.0,
+      );
+    }
+    else {
+      return interpolate(
+        blueMiddleColour,
+        blueHighestColour,
+        (flippedWinMargin - 50.0) * 2.0 / 100.0,
+      );
+    }
   } else {
     return defaultColour;
   }
 }
 
-function getOutlineColour(percentage) {
-  if (percentage >= 50.0) {
-    return redHighestColour;
-  } else if (percentage >= 0.0) {
-    return blueHighestColour;
+function getConstituencyOutlineColour(winMargin) {
+  if (winMargin >= 0.0) {
+    return redOutlineColour;
+  } else if (winMargin < 0.0) {
+    return blueOutlineColour;
   } else {
     return defaultColour;
   }
@@ -210,7 +236,7 @@ fetch("./data/Election Results.csv")
     initialiseBoundariesOfYear(displayedYear);
   });
 
-function getPAPVotePercentage(constituencyName) {
+function getPAPVoteShare(constituencyName) {
   const found = results.find(
     (element) =>
       element[0].localeCompare(displayedYear) == 0 &&
@@ -219,15 +245,24 @@ function getPAPVotePercentage(constituencyName) {
   );
 
   if (found) {
-    votePercentage = found[6];
-
-    if (votePercentage.localeCompare("na") == 0) {
+    voteShare = found[6];
+    
+    if (voteShare.localeCompare("na") == 0) {
       return 100.0;
     } else {
       return found[6] * 100.0;
     }
   } else {
     return -1;
+  }
+}
+
+function getWinMargin(voteShare) { 
+  if (voteShare >= 0.0) {
+    return voteShare - (100.0 - voteShare);
+  }
+  else {
+    return "NA";
   }
 }
 
@@ -239,16 +274,18 @@ function onEachConstituency(feature, layer) {
 }
 
 function highlightConstituency(e) {
-  var layer = e.target;
+  const layer = e.target;
+  
+  const mainConstituencyName =
+    layer.feature.properties["Constituency Name"];
+  const mainConstituencyDescription =
+    layer.feature.properties["Description"];
 
   layer.setStyle({
     weight: 3,
     fillOpacity: "0.8",
   });
 
-  papVotePercentage = getPAPVotePercentage(
-    layer.feature.properties["Constituency Name"],
-  );
   hoverPopup = L.popup(mousePosition, {
     offset: L.point(0, -15),
     autoPan: false,
@@ -257,31 +294,35 @@ function highlightConstituency(e) {
     className: "hover-popup",
     pane: "hoverPopup",
   })
-    .setContent(getConstituencyDefaultText(layer))
+    .setContent(getConstituencyDefaultText(mainConstituencyName, mainConstituencyDescription))
     .openOn(map);
 
   layer.bringToFront();
 }
 
-function getConstituencyDefaultText(layer) {
-  papVotePercentage = getPAPVotePercentage(
-    layer.feature.properties["Constituency Name"],
-  );
+function getConstituencyDefaultText(constituencyName, constituencyDescription) {
+  const papVoteShare = getPAPVoteShare(constituencyName);
+  const winMargin = getWinMargin(papVoteShare);
 
   return (
     "<h2>" +
-    layer.feature.properties.Description +
+    constituencyDescription +
     "</h2>\n" +
-    (papVotePercentage >= 100.0
-      ? "PAP Won Uncontested"
-      : papVotePercentage >= 0.0
-      ? "PAP Vote Share: " + papVotePercentage.toFixed(2) + "%"
-      : "No Data")
+    getConstituencyResultsText(papVoteShare, winMargin)
   );
 }
 
+function getConstituencyResultsText(papVoteShare, winMargin) {
+  return (papVoteShare >= 100.0
+        ? "PAP Won Uncontested"
+        : papVoteShare >= 0.0
+        ? "PAP Vote Share: " + papVoteShare.toFixed(2) + "%" +
+          "<h4>PAP Win Margin: " + winMargin.toFixed(2) + "%</h4>"
+        : "No Data")
+}
+
 function resetConstituencyHighlight(e) {
-  var layer = e.target;
+  const layer = e.target;
   geojson.resetStyle(layer);
   layer.bringToBack();
 
@@ -297,16 +338,16 @@ function onEachChangedBoundary(feature, layer) {
 }
 
 function highlightChangedBoundary(e) {
-  var layer = e.target;
+  const layer = e.target;
 
   layer.setStyle({
     weight: 3,
-    fillOpacity: "0.5",
+    fillOpacity: "0.35",
   });
+  
+  const papVoteShare = getPAPVoteShare(layer.feature.properties['Old Constituency Name']);
+  const winMargin = getWinMargin(papVoteShare);
 
-  papVotePercentage = getPAPVotePercentage(
-    layer.feature.properties["Old Constituency Name"],
-  );
   hoverPopup = L.popup(mousePosition, {
     offset: L.point(0, -15),
     autoPan: false,
@@ -317,21 +358,17 @@ function highlightChangedBoundary(e) {
   })
     .setContent(
       "<h2>Changed Boundaries:</h2>\n" +
-        "<h4>" +
+        "<h3>" +
         displayedYear +
         ": " +
         layer.feature.properties["Old Description"] +
-        "</h4>\n" +
-        "<h4>" +
+        "</h3>\n" +
+        getConstituencyResultsText(papVoteShare, winMargin) +
+        "<h3>" +
         getFollowingYear() +
         ": " +
-        layer.feature.properties["New Description"] +
-        "</h4>\n" +
-        (papVotePercentage >= 100.0
-          ? "PAP Won Uncontested"
-          : papVotePercentage >= 0.0
-          ? "PAP Vote Share: " + papVotePercentage.toFixed(2) + "%"
-          : "No Data"),
+        layer.feature.properties["New Description"] + 
+        "</h3>"
     )
     .openOn(map);
 
@@ -443,11 +480,11 @@ function initialiseMap() {
   legend.onAdd = function (map) {
     var div = L.DomUtil.create("div", "mainLegend");
     div.innerHTML += "<h4>Legend</h4>";
-    div.innerHTML += "<h3>PAP Vote Share</h3>";
-    div.innerHTML += "<h2L>0%</h2L>";
+    div.innerHTML += "<h3>PAP Win Margin</h3>";
+    div.innerHTML += "<h2L>-100%</h2L>";
     div.innerHTML += "<h2R>100%</h2R><br><br>";
-    for (let i = 0; i < 100; ++i) {
-      div.innerHTML += '<i style="background:' + getFillColour(i) + '"></i>';
+    for (let i = -100; i < 100; ++i) {
+      div.innerHTML += '<i style="background:' + getConstituencyWinMarginFillColour(i) + '"></i>';
     }
 
     return div;
@@ -464,26 +501,28 @@ function initialiseBoundariesOfYear(year) {
   }
 
   function styleMap(feature) {
-    const votePercentage = getPAPVotePercentage(
-      feature.properties["Constituency Name"],
-    );
+    const papVoteShare = getPAPVoteShare(feature.properties["Constituency Name"]);    
+    const winMargin = getWinMargin(papVoteShare);
+    
     return {
-      fillColor: getFillColour(votePercentage),
+      fillColor: getConstituencyWinMarginFillColour(winMargin),
       weight: 1.5,
       opacity: 1,
-      color: getOutlineColour(votePercentage),
+      color: getConstituencyOutlineColour(winMargin),
       fillOpacity: "0.75",
       dashOpacity: "0.5",
       zIndex: 200,
     };
   }
-
+  
   geojson = L.geoJSON
     .ajax(getBoundariesDataOfYear(year), {
       style: styleMap,
       onEachFeature: onEachConstituency,
     })
     .addTo(map);
+    
+  console.log(geojson);
 
   initialiseChangedBoundariesOfYear(year);
 }
@@ -506,15 +545,12 @@ function initialiseChangedBoundariesOfYear(year) {
   layerControl.addOverlay(changedGeojson, "Show Changed Boundaries");
 
   function styleChangedBoundariesInactive(feature) {
-    const votePercentage = getPAPVotePercentage(
-      feature.properties["Constituency Name"],
-    );
     return {
       fillColor: "black",
       weight: 2,
       opacity: 1,
       color: "black",
-      fillOpacity: "0.25",
+      fillOpacity: "0.55",
       dashOpacity: "1",
       dashArray: "4 5",
       zIndex: 600,
@@ -524,13 +560,21 @@ function initialiseChangedBoundariesOfYear(year) {
 }
 
 function zoomToFeature(e) {
-  const positiveDifferenceColour = "#7f3b08";
-  const middleColour = "#f7f7f7";
-  const negativeDifferenceColour = "#2d004b";
+  const positiveDifferenceHighestColour = "#7f3b08";
+  const positiveDifferenceMiddleColour = "#b35806";
+  const positiveDifferenceLowestColour = "#fee0b6";
+  const positiveDifferenceOutlineColour = "#662506";
+  
+  const negativeDifferenceHighestColour = "#2d004b";
+  const negativeDifferenceMiddleColour = "#542788 ";
+  const negativeDifferenceLowestColour = "#4d004b";
+  const negativeDifferenceOutlineColour = "#003c30";
 
   const selectedConstituencyLayer = e.target;
   const selectedConstituencyName =
     selectedConstituencyLayer.feature.properties["Old Constituency Name"];
+  const selectedConstituencyDescriptn =
+    selectedConstituencyLayer.feature.properties["Old Description"]
   var mainConstituency;
   var allRemovedBoundariesLayers = [];
   var allAddedBoundariesLayers = [];
@@ -655,10 +699,10 @@ function zoomToFeature(e) {
     voteMarginLegend.onAdd = function (map) {
       var div = L.DomUtil.create("div", "mainLegend");
       div.innerHTML += "<h4>Legend</h4>";
-      div.innerHTML += "<h3>PAP Vote Share</h3>";
-      for (let i = 0; i < 100; ++i) {
-        div.innerHTML += '<i style="background:' + getFillColour(i) + '"></i>';
-      }
+      div.innerHTML += "<h3>PAP Win Margin</h3>";
+      // for (let i = 0; i < 100; ++i) {
+        // div.innerHTML += '<i style="background:' + getFillColour(i) + '"></i>';
+      // }
 
       return div;
     };
@@ -694,28 +738,27 @@ function zoomToFeature(e) {
   }
 
   function styleAddedBoundary(addedBoundary) {
-    const originConstituencyName =
+    const addedFromConstituencyName =
       addedBoundary.feature.properties["Old Constituency Name"];
-    const selectedConstituencyVoteShare = getPAPVotePercentage(
+    const selectedConstituencyVoteShare = getPAPVoteShare(
       selectedConstituencyName,
     );
     const selectedConstituencyWinMargin = getWinMargin(
       selectedConstituencyVoteShare,
     );
-    const originConstituencyVoteShare = getPAPVotePercentage(
-      originConstituencyName,
+    const addedFromConstituencyVoteShare = getPAPVoteShare(
+      addedFromConstituencyName,
     );
-    const originConstituencyWinMargin = getWinMargin(
-      originConstituencyVoteShare,
+    const addedFromConstituencyWinMargin = getWinMargin(
+      addedFromConstituencyVoteShare,
     );
     // From added, minus, selected, to highlight boundary changes from strongholds
-    const voteShareDifference =
-      originConstituencyWinMargin - selectedConstituencyWinMargin;
+    const voteMarginDifference =
+      addedFromConstituencyWinMargin - selectedConstituencyWinMargin;
 
-    console.log(originConstituencyName + voteShareDifference);
     addedBoundary.setStyle({
-      fillColor: getWinMarginDifferenceFillColour(voteShareDifference),
-      color: getWinMarginDifferenceLineColour(voteShareDifference),
+      fillColor: getWinMarginDifferenceFillColour(voteMarginDifference),
+      color: getWinMarginDifferenceLineColour(voteMarginDifference),
       weight: 3,
       fillOpacity: "0.85",
     });
@@ -724,7 +767,10 @@ function zoomToFeature(e) {
   function highlightMainConstituency(e) {
     styleMainConstituency();
 
-    var layer = e.target;
+    const layer = e.target;
+    
+    const constituencyName = layer.feature.properties["Constituency Name"];
+    const constituencyDescription = layer.feature.properties["Description"];
 
     layer.setStyle({
       fillOpacity: "1.0",
@@ -738,12 +784,15 @@ function zoomToFeature(e) {
       className: "hover-popup",
       pane: "hoverPopup",
     })
-      .setContent(getConstituencyDefaultText(layer))
+      .setContent(getConstituencyDefaultText(constituencyName, constituencyDescription))
       .openOn(map);
   }
 
   function highlightRemovedBoundary(e) {
     var layer = e.target;
+    
+    const constituencyName = layer.feature.properties["Old Constituency Name"];
+    const constituencyDescription = layer.feature.properties["Old Description"];
 
     layer.setStyle({
       weight: 3,
@@ -759,14 +808,11 @@ function zoomToFeature(e) {
       pane: "hoverPopup",
     })
       .setContent(
-        "<h2>" +
-          layer.feature.properties["Old Description"] +
-          "\n</h2>" +
-          "<h4>Moved TO " +
-          layer.feature.properties["New Description"] +
-          " in " +
+        getConstituencyDefaultText(constituencyName, constituencyDescription) +
+          "<h3>Moved in " + 
           getFollowingYear() +
-          "</h4>",
+          " to</h3>" +
+          layer.feature.properties["New Description"]
       )
       .openOn(map);
 
@@ -784,12 +830,19 @@ function zoomToFeature(e) {
 
     const addedConstituencyName =
       layer.feature.properties["Old Constituency Name"];
+    const addedConstituencyDescription =
+      layer.feature.properties["Old Description"];
+      
+     const mainConstituencyName =
+      mainConstituency.feature.properties["Constituency Name"];
+    const mainConstituencyDescription =
+      mainConstituency.feature.properties["Description"];
 
-    const mainConstituencyVoteShare = getPAPVotePercentage(
+    const mainConstituencyVoteShare = getPAPVoteShare(
       selectedConstituencyName,
     );
     const mainConstituencyWinMargin = getWinMargin(mainConstituencyVoteShare);
-    const addedConstituencyVoteShare = getPAPVotePercentage(
+    const addedConstituencyVoteShare = getPAPVoteShare(
       addedConstituencyName,
     );
     const addedConstituencyWinMargin = getWinMargin(addedConstituencyVoteShare);
@@ -812,24 +865,11 @@ function zoomToFeature(e) {
     })
 
       .setContent(
-        getConstituencyDefaultText(mainConstituency) +
-          ", Win Margin: " +
-          mainConstituencyWinMargin.toFixed(2) +
-          "%" +
-          "<h4>Moved FROM " +
-          layer.feature.properties["Old Description"] +
-          " in " +
-          getFollowingYear() +
-          "</h4>" +
-          "PAP Vote Share: " +
-          addedConstituencyVoteShare.toFixed(2) +
-          "%" +
-          ", Win Margin: " +
-          addedConstituencyWinMargin.toFixed(2) +
-          "%" +
-          "<h4>Win Margin Difference: " +
-          WinMarginDifference.toFixed(2) +
-          "%</h4>",
+        getConstituencyDefaultText(mainConstituencyName, mainConstituencyDescription) +
+          "<h3>Moved in " + 
+          getFollowingYear() + 
+          " from</h3>" +
+          getConstituencyDefaultText(addedConstituencyName, addedConstituencyDescription)
       )
       .openOn(map);
 
@@ -848,31 +888,47 @@ function zoomToFeature(e) {
     resetHoverPopup();
   }
 
-  function getWinMargin(voteShare) {
-    return voteShare - (100.0 - voteShare);
-  }
-
   function getWinMarginDifferenceFillColour(percentageDifference) {
     if (percentageDifference > 0.0) {
-      return interpolate(
-        middleColour,
-        positiveDifferenceColour,
-        percentageDifference / 100.0,
-      );
+      if (percentageDifference <= 50.0) {
+        return interpolate(
+          positiveDifferenceLowestColour,
+          positiveDifferenceMiddleColour,
+          percentageDifference * 2.0 / 100.0,
+        );
+      }
+      else {
+        return interpolate(
+          positiveDifferenceMiddleColour,
+          positiveDifferenceHighestColour,
+          (percentageDifference - 50.0) * 2.0 / 100.0,
+        );
+      }
     } else {
-      return interpolate(
-        middleColour,
-        negativeDifferenceColour,
-        (percentageDifference * -1.0) / 100.0,
-      );
+      const flippedPercentageDifference = percentageDifference * -1.0;
+      
+      if (flippedPercentageDifference <= 50.0) {
+        return interpolate(
+          negativeDifferenceLowestColour,
+          negativeDifferenceMiddleColour,
+          flippedPercentageDifference * 2.0 / 100.0,
+        );
+      }
+      else {
+        return interpolate(
+          negativeDifferenceMiddleColour,
+          negativeDifferenceHighestColour,
+          (flippedPercentageDifference - 50.0) * 2.0 / 100.0,
+        );
+      }
     }
   }
 
   function getWinMarginDifferenceLineColour(percentageDifference) {
     if (percentageDifference > 0.0) {
-      return positiveDifferenceColour;
+      return positiveDifferenceOutlineColour;
     } else {
-      return negativeDifferenceColour;
+      return negativeDifferenceOutlineColour;
     }
   }
 }
