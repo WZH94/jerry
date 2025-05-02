@@ -421,11 +421,6 @@ function resetGeojsons() {
 function initialiseMap() {
   var blank = L.tileLayer("");
 
-  var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap",
-  });
-
   var osmHOT = L.tileLayer(
     "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
     {
@@ -446,7 +441,6 @@ function initialiseMap() {
 
   var baseMaps = {
     Blank: blank,
-    OpenStreetMap: osm,
     "OpenStreetMap.HOT": osmHOT,
   };
 
