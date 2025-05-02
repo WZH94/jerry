@@ -513,12 +513,13 @@ function initialiseBoundariesOfYear(year) {
     .ajax(getBoundariesDataOfYear(year), {
       style: styleMap,
       onEachFeature: onEachConstituency,
-    })
-    .addTo(map);
+    });
     
   console.log(geojson);
 
   initialiseChangedBoundariesOfYear(year);
+  
+  geojson.addTo(map);
 }
 
 function initialiseChangedBoundariesOfYear(year) {
