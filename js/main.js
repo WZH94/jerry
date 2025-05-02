@@ -574,7 +574,7 @@ const positiveDifferenceOutlineColour = "#662506";
 
 const negativeDifferenceHighestColour = "#2d004b";
 const negativeDifferenceMiddleColour = "#542788 ";
-const negativeDifferenceLowestColour = "#4d004b";
+const negativeDifferenceLowestColour = "#d8daeb";
 const negativeDifferenceOutlineColour = "#003c30";
 
 function inspectConstituencyChanges(e) {
