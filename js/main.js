@@ -110,6 +110,10 @@ function getChangedBoundariesDataOfYear(year) {
     : "";
 }
 
+function areChangedBoundariesDisplayed() {
+  return map.hasLayer(changedGeojson);
+}
+
 function canYearBeIncremented() {
   return yearIndex < maxIndex;
 }
@@ -270,6 +274,7 @@ function onEachConstituency(feature, layer) {
   layer.on({
     mouseover: highlightConstituency,
     mouseout: resetConstituencyHighlight,
+    click: inspectConstituencyChanges
   });
 }
 
@@ -294,7 +299,11 @@ function highlightConstituency(e) {
     className: "hover-popup",
     pane: "hoverPopup",
   })
-    .setContent(getConstituencyDefaultText(mainConstituencyName, mainConstituencyDescription))
+    .setContent(
+      getConstituencyDefaultText(mainConstituencyName, mainConstituencyDescription) +
+      (areChangedBoundariesDisplayed() 
+      ? "Click to inspect changed boundaries of " + mainConstituencyDescription + "."
+      : ""))
     .openOn(map);
 
   layer.bringToFront();
@@ -333,7 +342,7 @@ function onEachChangedBoundary(feature, layer) {
   layer.on({
     mouseover: highlightChangedBoundary,
     mouseout: resetChangedBoundaryHighlight,
-    click: zoomToFeature,
+    click: inspectChangedBoundary,
   });
 }
 
@@ -345,7 +354,9 @@ function highlightChangedBoundary(e) {
     fillOpacity: "0.35",
   });
   
-  const papVoteShare = getPAPVoteShare(layer.feature.properties['Old Constituency Name']);
+  const oldConstituencyName = layer.feature.properties['Old Constituency Name'];
+  const oldConstituencyDescription = layer.feature.properties['Old Description'];
+  const papVoteShare = getPAPVoteShare(oldConstituencyName);
   const winMargin = getWinMargin(papVoteShare);
 
   hoverPopup = L.popup(mousePosition, {
@@ -368,7 +379,9 @@ function highlightChangedBoundary(e) {
         getFollowingYear() +
         ": " +
         layer.feature.properties["New Description"] + 
-        "</h3>"
+        "</h3>Click to inspect changed boundaries of " +
+        oldConstituencyDescription +
+        "."
     )
     .openOn(map);
 
@@ -554,26 +567,51 @@ function initialiseChangedBoundariesOfYear(year) {
   }
 }
 
-function zoomToFeature(e) {
-  const positiveDifferenceHighestColour = "#7f3b08";
-  const positiveDifferenceMiddleColour = "#b35806";
-  const positiveDifferenceLowestColour = "#fee0b6";
-  const positiveDifferenceOutlineColour = "#662506";
-  
-  const negativeDifferenceHighestColour = "#2d004b";
-  const negativeDifferenceMiddleColour = "#542788 ";
-  const negativeDifferenceLowestColour = "#4d004b";
-  const negativeDifferenceOutlineColour = "#003c30";
+const positiveDifferenceHighestColour = "#7f3b08";
+const positiveDifferenceMiddleColour = "#b35806";
+const positiveDifferenceLowestColour = "#fee0b6";
+const positiveDifferenceOutlineColour = "#662506";
 
+const negativeDifferenceHighestColour = "#2d004b";
+const negativeDifferenceMiddleColour = "#542788 ";
+const negativeDifferenceLowestColour = "#4d004b";
+const negativeDifferenceOutlineColour = "#003c30";
+
+function inspectConstituencyChanges(e) {
+  if (map.hasLayer(changedGeojson)) {
+    zoomAndInspectConstituencyChangedFeatures(e.target);
+  }
+}
+
+function inspectChangedBoundary(e) {
   const selectedConstituencyLayer = e.target;
   const selectedConstituencyName =
     selectedConstituencyLayer.feature.properties["Old Constituency Name"];
-  const selectedConstituencyDescriptn =
-    selectedConstituencyLayer.feature.properties["Old Description"]
-  var mainConstituency;
+  
+  // Find the main constituency's layer
+  geojson.eachLayer(function (layer) {
+    const constituencyName = layer.feature.properties["Constituency Name"];
+
+    if (doesBoundaryNameMatch(constituencyName, selectedConstituencyName)) {
+      zoomAndInspectConstituencyChangedFeatures(layer);
+      
+      return;
+    }
+  });
+}
+
+function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
+  const mainConstituencyName = mainConstituency.feature.properties["Constituency Name"];
+  const mainConstituencyDescriptn = mainConstituency.feature.properties["Description"]
   var allRemovedBoundariesLayers = [];
   var allAddedBoundariesLayers = [];
-  var focusedFeatures = [];
+  var focusedFeatures = [mainConstituency];
+  
+  mainConstituency.off();
+  mainConstituency.on({
+    mouseover: highlightMainConstituency,
+    mouseout: resetMainConstituencyHighlight,
+  });
 
   resetHoverPopup();
 
@@ -586,7 +624,7 @@ function zoomToFeature(e) {
     layer.off();
 
     // Find the list of constituencies that this constituency's boundaries has been moved to
-    if (selectedConstituencyName.localeCompare(oldConstituencyName) == 0) {
+    if (mainConstituencyName.localeCompare(oldConstituencyName) == 0) {
       layer.on({
         mouseover: highlightRemovedBoundary,
         mouseout: resetRemovedBoundaryHighlight,
@@ -594,18 +632,19 @@ function zoomToFeature(e) {
 
       allRemovedBoundariesLayers.push(layer);
       focusedFeatures.push(layer);
+      layer.bringToFront();
     }
 
     // Find the list of constituencies that have been added to this constituency's boundaries
-    else if (
-      doesBoundaryNameMatch(newConstituencyName, selectedConstituencyName)
-    ) {
+    else if (doesBoundaryNameMatch(newConstituencyName, mainConstituencyName)) {
       layer.on({
         mouseover: highlightAddedBoundary,
         mouseout: resetAddedBoundaryHighlight,
       });
+      
       allAddedBoundariesLayers.push(layer);
       focusedFeatures.push(layer);
+      layer.bringToFront();
     }
 
     // Hide all other layers
@@ -620,20 +659,9 @@ function zoomToFeature(e) {
 
   geojson.eachLayer(function (layer) {
     const constituencyName = layer.feature.properties["Constituency Name"];
-
-    layer.off();
-
-    // Find the main constituency's layer
-    if (doesBoundaryNameMatch(constituencyName, selectedConstituencyName)) {
-      focusedFeatures.push(layer);
-
-      mainConstituency = layer;
-
-      mainConstituency.on({
-        mouseover: highlightMainConstituency,
-        mouseout: resetMainConstituencyHighlight,
-      });
-    } else {
+    
+    if (!doesBoundaryNameMatch(constituencyName, mainConstituencyName)) {
+      layer.off();
       layer.setStyle({
         weight: 1,
         fillOpacity: 0.05,
@@ -737,21 +765,12 @@ function zoomToFeature(e) {
   function styleAddedBoundary(addedBoundary) {
     const addedFromConstituencyName =
       addedBoundary.feature.properties["Old Constituency Name"];
-    const selectedConstituencyVoteShare = getPAPVoteShare(
-      selectedConstituencyName,
-    );
-    const selectedConstituencyWinMargin = getWinMargin(
-      selectedConstituencyVoteShare,
-    );
-    const addedFromConstituencyVoteShare = getPAPVoteShare(
-      addedFromConstituencyName,
-    );
-    const addedFromConstituencyWinMargin = getWinMargin(
-      addedFromConstituencyVoteShare,
-    );
+    const selectedConstituencyVoteShare = getPAPVoteShare(mainConstituencyName);
+    const selectedConstituencyWinMargin = getWinMargin(selectedConstituencyVoteShare);
+    const addedFromConstituencyVoteShare = getPAPVoteShare(addedFromConstituencyName);
+    const addedFromConstituencyWinMargin = getWinMargin(addedFromConstituencyVoteShare);
     // From added, minus, selected, to highlight boundary changes from strongholds
-    const voteMarginDifference =
-      addedFromConstituencyWinMargin - selectedConstituencyWinMargin;
+    const voteMarginDifference = addedFromConstituencyWinMargin - selectedConstituencyWinMargin;
 
     addedBoundary.setStyle({
       fillColor: getWinMarginDifferenceFillColour(voteMarginDifference),
@@ -825,27 +844,20 @@ function zoomToFeature(e) {
   function highlightAddedBoundary(e) {
     var layer = e.target;
 
-    const addedConstituencyName =
-      layer.feature.properties["Old Constituency Name"];
-    const addedConstituencyDescription =
-      layer.feature.properties["Old Description"];
+    const addedConstituencyName = layer.feature.properties["Old Constituency Name"];
+    const addedConstituencyDescription = layer.feature.properties["Old Description"];
       
      const mainConstituencyName =
       mainConstituency.feature.properties["Constituency Name"];
     const mainConstituencyDescription =
       mainConstituency.feature.properties["Description"];
 
-    const mainConstituencyVoteShare = getPAPVoteShare(
-      selectedConstituencyName,
-    );
+    const mainConstituencyVoteShare = getPAPVoteShare(mainConstituencyName);
     const mainConstituencyWinMargin = getWinMargin(mainConstituencyVoteShare);
-    const addedConstituencyVoteShare = getPAPVoteShare(
-      addedConstituencyName,
-    );
+    const addedConstituencyVoteShare = getPAPVoteShare(addedConstituencyName);
     const addedConstituencyWinMargin = getWinMargin(addedConstituencyVoteShare);
 
-    const WinMarginDifference =
-      addedConstituencyWinMargin - mainConstituencyWinMargin;
+    const WinMarginDifference = addedConstituencyWinMargin - mainConstituencyWinMargin;
 
     layer.setStyle({
       weight: 3,
