@@ -288,7 +288,7 @@ function highlightConstituency(e) {
 
   layer.setStyle({
     weight: 3,
-    fillOpacity: "0.8",
+    fillOpacity: 0.9,
   });
 
   hoverPopup = L.popup(mousePosition, {
@@ -351,7 +351,7 @@ function highlightChangedBoundary(e) {
 
   layer.setStyle({
     weight: 3,
-    fillOpacity: "0.35",
+    fillOpacity: 0.35,
   });
   
   const oldConstituencyName = layer.feature.properties['Old Constituency Name'];
@@ -368,7 +368,7 @@ function highlightChangedBoundary(e) {
     pane: "hoverPopup",
   })
     .setContent(
-      "<h2>Changed Boundaries:</h2>\n" +
+      "<h2>Changed Boundary:</h2>\n" +
         "<h3>" +
         displayedYear +
         ": " +
@@ -516,8 +516,8 @@ function initialiseBoundariesOfYear(year) {
       weight: 1.5,
       opacity: 1,
       color: getConstituencyOutlineColour(winMargin),
-      fillOpacity: "0.75",
-      dashOpacity: "0.5",
+      fillOpacity: 0.75,
+      dashOpacity: 0.5,
       zIndex: 200,
     };
   }
@@ -558,8 +558,8 @@ function initialiseChangedBoundariesOfYear(year) {
       weight: 2,
       opacity: 1,
       color: "black",
-      fillOpacity: "0.55",
-      dashOpacity: "1",
+      fillOpacity: 0.55,
+      dashOpacity: 1,
       dashArray: "4 5",
       zIndex: 600,
       bubblingMouseEvents: false,
@@ -576,6 +576,8 @@ const negativeDifferenceHighestColour = "#2d004b";
 const negativeDifferenceMiddleColour = "#542788 ";
 const negativeDifferenceLowestColour = "#d8daeb";
 const negativeDifferenceOutlineColour = "#003c30";
+
+const removedBoundaryColour = "#80cdc1";
 
 function inspectConstituencyChanges(e) {
   if (map.hasLayer(changedGeojson)) {
@@ -689,7 +691,7 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
   // Black background
   overlayBackground = L.rectangle(backgroundBounds, {
     fillColor: "black",
-    fillOpacity: "0.7",
+    fillOpacity: 0.7,
   })
     .addTo(map)
     .bringToBack();
@@ -722,12 +724,15 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
     voteMarginLegend = L.control({ position: "bottomright" });
 
     voteMarginLegend.onAdd = function (map) {
-      var div = L.DomUtil.create("div", "mainLegend");
+      var div = L.DomUtil.create("div", "info mainLegend");
       div.innerHTML += "<h4>Legend</h4>";
-      div.innerHTML += "<h3>PAP Win Margin</h3>";
-      // for (let i = 0; i < 100; ++i) {
-        // div.innerHTML += '<i style="background:' + getFillColour(i) + '"></i>';
-      // }
+      div.innerHTML += '<t style="background:' + removedBoundaryColour + '"></t><br>Removed Boundary<br><br>';
+      div.innerHTML += "<h3>Added Boundary PAP Win Margin Difference</h3>";
+      div.innerHTML += "<h2L>-100%</h2L>";
+      div.innerHTML += "<h2R>100%</h2R><br><br>";
+      for (let i = -100; i < 100; ++i) {
+        div.innerHTML += '<i style="background:' + getWinMarginDifferenceFillColour(i) + '"></i>';
+      }
 
       return div;
     };
@@ -736,8 +741,10 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
   }
 
   function styleMainConstituency() {
+    geojson.resetStyle(mainConstituency);
     mainConstituency.setStyle({
       weight: 4,
+      fillOpacity: 0.75
     });
   }
 
@@ -749,10 +756,10 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
 
   function styleRemovedBoundary(removedBoundary) {
     removedBoundary.setStyle({
-      fillColor: "#80cdc1",
+      fillColor: removedBoundaryColour,
       weight: 3,
       color: "#01665e",
-      fillOpacity: "0.85",
+      fillOpacity: 0.9,
     });
   }
 
@@ -776,7 +783,7 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
       fillColor: getWinMarginDifferenceFillColour(voteMarginDifference),
       color: getWinMarginDifferenceLineColour(voteMarginDifference),
       weight: 3,
-      fillOpacity: "0.85",
+      fillOpacity: 0.85,
     });
   }
 
@@ -789,7 +796,7 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
     const constituencyDescription = layer.feature.properties["Description"];
 
     layer.setStyle({
-      fillOpacity: "1.0",
+      fillOpacity: 1.0,
     });
 
     hoverPopup = L.popup(mousePosition, {
@@ -807,12 +814,15 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
   function highlightRemovedBoundary(e) {
     var layer = e.target;
     
-    const constituencyName = layer.feature.properties["Old Constituency Name"];
-    const constituencyDescription = layer.feature.properties["Old Description"];
+    const mainConstituencyName = layer.feature.properties["Old Constituency Name"];
+    const mainConstituencyDescription = layer.feature.properties["Old Description"];
+    
+    const newConstituencyName = layer.feature.properties["New Constituency Name"];
+    const newConstituencyDescription = layer.feature.properties["New Description"];
 
     layer.setStyle({
       weight: 3,
-      fillOpacity: "1.0",
+      fillOpacity: 1.0,
     });
 
     hoverPopup = L.popup(mousePosition, {
@@ -824,11 +834,9 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
       pane: "hoverPopup",
     })
       .setContent(
-        getConstituencyDefaultText(constituencyName, constituencyDescription) +
-          "<h3>Moved in " + 
-          getFollowingYear() +
-          " to</h3>" +
-          layer.feature.properties["New Description"]
+        "<h2>Removed Boundary (" + getFollowingYear() + "):</h2>\n" +
+        getConstituencyDefaultText(mainConstituencyName, mainConstituencyDescription) +
+        "<h3>Moved to " + newConstituencyDescription + "</h3>"
       )
       .openOn(map);
 
@@ -857,11 +865,11 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
     const addedConstituencyVoteShare = getPAPVoteShare(addedConstituencyName);
     const addedConstituencyWinMargin = getWinMargin(addedConstituencyVoteShare);
 
-    const WinMarginDifference = addedConstituencyWinMargin - mainConstituencyWinMargin;
+    const winMarginDifference = addedConstituencyWinMargin - mainConstituencyWinMargin;
 
     layer.setStyle({
       weight: 3,
-      fillOpacity: "1.0",
+      fillOpacity: 1.0,
     });
 
     hoverPopup = L.popup(mousePosition, {
@@ -874,11 +882,10 @@ function zoomAndInspectConstituencyChangedFeatures(mainConstituency) {
     })
 
       .setContent(
+        "<h2>Added Boundary (" + getFollowingYear() + "):</h2>\n" +
         getConstituencyDefaultText(mainConstituencyName, mainConstituencyDescription) +
-          "<h3>Moved in " + 
-          getFollowingYear() + 
-          " from</h3>" +
-          getConstituencyDefaultText(addedConstituencyName, addedConstituencyDescription)
+        getConstituencyDefaultText(addedConstituencyName, addedConstituencyDescription) +
+        "<h4>DIFFERENCE: " + winMarginDifference.toFixed(2) + "%</h4>"
       )
       .openOn(map);
 
