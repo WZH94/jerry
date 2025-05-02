@@ -526,6 +526,7 @@ function initialiseBoundariesOfYear(year) {
     .ajax(getBoundariesDataOfYear(year), {
       style: styleMap,
       onEachFeature: onEachConstituency,
+      attribution: "Contains information from data.gov.sg (Electoral Boundary 2006 - 2025, Parliamentary General Election Results), under the terms of the Singapore Open Data License version 1.0: https://sg-mdh.mpa.gov.sg/content/singapore-open-data-licence-version-10"
     });
     
   console.log(geojson);
