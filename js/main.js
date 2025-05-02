@@ -40,10 +40,10 @@ let yearInfo;
 
 let container;
 
-const maxBounds = [
+const maxBounds = L.latLngBounds([
   [1.5509, 103.4033],
   [1.102, 104.2177],
-];
+]);
 
 const equivalentBoundaryNames = [
   ["West Coast", "West Coast-Jurong West"],
@@ -647,16 +647,18 @@ function zoomToFeature(e) {
 
   console.log(focusedFeatures);
 
-  var featureGroup = L.featureGroup(focusedFeatures);
-  var featureBounds = featureGroup.getBounds().pad(1.1);
+  const featureGroup = L.featureGroup(focusedFeatures);
+  const featureBounds = featureGroup.getBounds();
+  const paddedBounds = featureBounds.pad(1.1);
+  const backgroundBounds = maxBounds.pad(1.5);
 
   const desiredZoom = map.getBoundsZoom(featureBounds, false);
   map.setZoom(desiredZoom);
-  map.setMaxBounds(featureBounds);
+  map.setMaxBounds(paddedBounds);
   map.fitBounds(featureBounds);
 
   // Black background
-  overlayBackground = L.rectangle(maxBounds, {
+  overlayBackground = L.rectangle(backgroundBounds, {
     fillColor: "black",
     fillOpacity: "0.7",
   })
